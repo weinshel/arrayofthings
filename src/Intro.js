@@ -24,6 +24,7 @@ class Intro extends React.Component {
 
     return (
       <div>
+        <img src="arrayofthings.svg"></img>
         <Text size="xx-large" fontStyle="italic">
             <p>The Array of Things is a networked urban sensor project that’s changing our understanding of cities.</p>
         </Text>
