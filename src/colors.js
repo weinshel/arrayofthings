@@ -1,4 +1,4 @@
-import { alpha, darken, lighten } from '@instructure/ui-color-utils'
+import { darken, lighten } from '@instructure/ui-color-utils'
 
 const ucColors = {
   maroon: '#800000',
@@ -119,6 +119,11 @@ export const themeOverrides = {
 
   typography: {
     fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
+    
+  },
+  heading: {
+    h1FontSize: '4rem',
+    h1FontWeight: 600
   },
   colors: colors
 }

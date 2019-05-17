@@ -41,19 +41,20 @@ class App extends React.Component {
     const { details } = this.state
 
     return (
-      <div>
-        <Heading>Hello!</Heading>
+      <div style={{width: '1000px', maxWidth: '90%', padding:'20px'}}>
         {!details && <div>
+          <Intro />
           <Button 
             size="large"
             onClick={this.goForward}
+            margin="xx-large 0 xx-large 0"
           >Tap to learn more</Button>
-          <Intro />
         </div>}
 
         {details && <div>
           <Button
             onClick={this.goBack}
+            margin="0 0 large 0"
           >Back</Button>
           <Details/>
         </div>}
