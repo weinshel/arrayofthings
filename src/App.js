@@ -1,6 +1,5 @@
 import React from 'react'
 
-import DarkSkyApi from 'dark-sky-api'
 import { theme } from '@instructure/canvas-theme'
 import { Text, Heading } from '@instructure/ui-elements'
 import { Button } from '@instructure/ui-buttons'
@@ -34,13 +33,6 @@ class App extends React.Component {
   }
 
   async componentDidMount () {
-    DarkSkyApi.apiKey = '063be74a6b9691f10b7c4e43f2f642af';
-    const position = {
-      latitude: 41.78468745,
-      longitude: -87.60074932651055
-    };
-    DarkSkyApi.loadCurrent(position)
-      .then(result => console.log(result));
 
 
   }
@@ -52,7 +44,7 @@ class App extends React.Component {
       <div style={{width: '1000px', maxWidth: '90%', padding:'20px'}}>
         {!details && <div>
           <Intro />
-          <Button 
+          <Button
             size="large"
             onClick={this.goForward}
             margin="xx-large 0 xx-large 0"
