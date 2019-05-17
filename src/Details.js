@@ -20,11 +20,12 @@ class Details extends React.Component {
     super(props)
     this.state = {
     }
+
+    this.getAudio = this.getAudio.bind(this)
   }
 
-  getAudio () {
-    navigator.mediaDevices.getUserMedia({ audio: true, video: true })
-  .then(function(stream) {
+  async getAudio () {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true })
     var audioContext = new AudioContext();
     var analyser = audioContext.createAnalyser();
     var microphone = audioContext.createMediaStreamSource(stream);
@@ -36,23 +37,20 @@ class Details extends React.Component {
     microphone.connect(analyser);
     analyser.connect(javascriptNode);
     javascriptNode.connect(audioContext.destination);
-    javascriptNode.onaudioprocess = function() {
-        var array = new Uint8Array(analyser.frequencyBinCount);
-        analyser.getByteFrequencyData(array);
-        var values = 0;
+    javascriptNode.onaudioprocess = () => {
+      var array = new Uint8Array(analyser.frequencyBinCount);
+      analyser.getByteFrequencyData(array);
+      var values = 0;
 
-        var length = array.length;
-        for (var i = 0; i < length; i++) {
-          values += (array[i]);
-        }
+      var length = array.length;
+      for (var i = 0; i < length; i++) {
+        values += (array[i]);
+      }
 
-        var average = values / length;
+      var average = values / length;
 
-      console.log(Math.round(average));
-    }
-    })
-    .catch(function(err) {
-  });
+      this.setState({audioLevel: average})
+  }
 }
 
   async componentDidMount () {
@@ -66,6 +64,7 @@ class Details extends React.Component {
     };
     DarkSkyApi.loadCurrent(position)
       .then(result => console.log(result));
+
 
 
   }
@@ -91,6 +90,7 @@ class Details extends React.Component {
         <MyHeading level="h2">Microphone 🎤</MyHeading>
         <Text size="large">
           A microphone is only used to determine the loudness of sound around the device. <strong>Audio recordings are never sent or stored.</strong>
+          <p>Audio level: {this.state.audioLevel}</p>
         </Text>
 
         <MyHeading level="h2">Environmental sensors ☁️</MyHeading>
@@ -102,6 +102,7 @@ class Details extends React.Component {
         <Text size="medium">
           Used to determine weather conditions.
         </Text>
+        <p>temp: {this.state.temperature}</p>
 
         <MyHeading level="h3">Light 💡</MyHeading>
         <Text size="medium">
