@@ -1,5 +1,6 @@
 import React from 'react'
 
+import DarkSkyApi from 'dark-sky-api'
 import { Text, Heading } from '@instructure/ui-elements'
 import { Button } from '@instructure/ui-buttons'
 import { Flex } from '@instructure/ui-layout'
@@ -21,13 +22,20 @@ class Details extends React.Component {
 
 
   async componentDidMount () {
+    DarkSkyApi.apiKey = '063be74a6b9691f10b7c4e43f2f642af';
+    const position = {
+      latitude: 41.78468745,
+      longitude: -87.60074932651055
+    };
+    DarkSkyApi.loadCurrent(position)
+      .then(result => console.log(result));
 
-    
+
   }
 
   render () {
-    const { 
-      
+    const {
+
     } = this.state
 
     return (
