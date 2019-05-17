@@ -1,26 +1,65 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import { theme } from '@instructure/canvas-theme'
+import { Text, Heading } from '@instructure/ui-elements'
+import { Button } from '@instructure/ui-buttons'
+import { Flex } from '@instructure/ui-layout'
+
+
+import Intro from './Intro'
+import Details from './Details'
+
+import { themeOverrides } from './colors'
+
+theme.use({ overrides: themeOverrides })
+
+class App extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      details: false
+    }
+
+    this.goBack = this.goBack.bind(this)
+    this.goForward = this.goForward.bind(this)
+  }
+
+  goBack () {
+    this.setState({details: false})
+  }
+
+  goForward () {
+    this.setState({details: true})
+  }
+
+  async componentDidMount () {
+
+    
+  }
+
+  render () {
+    const { details } = this.state
+
+    return (
+      <div>
+        <Heading>Hello!</Heading>
+        {!details && <div>
+          <Button 
+            size="large"
+            onClick={this.goForward}
+          >Tap to learn more</Button>
+          <Intro />
+        </div>}
+
+        {details && <div>
+          <Button
+            onClick={this.goBack}
+          >Back</Button>
+          <Details/>
+        </div>}
+      </div>
+    )
+  }
 }
 
-export default App;
+export default App

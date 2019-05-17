@@ -3,6 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@instructure/canvas-theme": "^6.2.0",
+    "@instructure/ui-buttons": "^6.2.0",
+    "@instructure/ui-color-utils": "^6.2.0",
+    "@instructure/ui-elements": "^6.2.0",
+    "@instructure/ui-icons": "^6.2.0",
+    "@instructure/ui-layout": "^6.2.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1"
@@ -10,7 +16,6 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
