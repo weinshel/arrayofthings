@@ -3,8 +3,7 @@ import React from 'react'
 import * as ml5 from "ml5"
 import DarkSkyApi from 'dark-sky-api'
 import { Text, Heading, Progress } from '@instructure/ui-elements'
-import { Button } from '@instructure/ui-buttons'
-import { Flex } from '@instructure/ui-layout'
+import { View } from '@instructure/ui-layout'
 
 import Card from './Card'
 import SoundMeter from './SoundMeter'
@@ -22,6 +21,7 @@ class Details extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
+      numPeople: 0
     }
 
 
@@ -128,8 +128,16 @@ poseNetVid = () => {
         <Text size="large">
           <p>A camera is only used to measure the following attributes, which are determined by a machine learning algorithm. <strong>Pictures or video on the camera never are sent or stored.</strong></p>
         </Text>
-        <video autoPlay={true} id="video" width = {300} height={200}></video>
-        <p>Number of people: {this.state.numPeople}</p>
+        <View 
+          margin="0 medium 0 0" 
+          width ={300} 
+          height={200}
+          display="inline-block"
+        >
+          <video autoPlay={true} id="video" width ={300} height={200}></video>
+        </View>
+        <Card header='Number of people' content={this.state.numPeople} />
+
 
         <MyHeading level="h2">Microphone 🎤</MyHeading>
         <Text size="large"><p>A microphone is only used to determine the loudness of sound around the device. <strong>Audio recordings are never sent or stored.</strong></p></Text>
