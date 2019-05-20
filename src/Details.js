@@ -39,7 +39,7 @@ poseNetVid = () => {
   }
 
   // Create a new poseNet method
-  const poseNet = ml5.poseNet(video, modelLoaded);
+  const poseNet = ml5.poseNet(video, {maxPoseDetections: 20}, modelLoaded);
 
   // When the model is loaded
 
@@ -128,9 +128,9 @@ poseNetVid = () => {
         <Text size="large">
           <p>A camera is only used to measure the following attributes, which are determined by a machine learning algorithm. <strong>Pictures or video on the camera never are sent or stored.</strong></p>
         </Text>
-        <View 
-          margin="0 medium 0 0" 
-          width ={300} 
+        <View
+          margin="0 medium 0 0"
+          width ={300}
           height={200}
           display="inline-block"
         >
