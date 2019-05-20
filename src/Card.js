@@ -1,17 +1,27 @@
 import React from 'react'
+import { Text, Header } from '@instructure/ui-elements'
+
 import { View } from '@instructure/ui-layout'
 
-const Card = ({ header, contents }) => (
-  <View 
-    as='div'
-    border="small"
+const Card = ({ header, content }) => (
+  <View
+    as="div"
+    padding="small medium small medium"
+    borderWidth="medium"
+    borderRadius="medium"
+    display="inline-block"
+    margin="0 0 0 medium"
   >
     <View
-      background='inverse'
+      as="header"
+      padding="0 0 x-small"
+      margin="0 0 x-small"
+      borderWidth="0 0 small 0"
+      backround="inverse"
     >
-        {header}
+    <Text weight="bold">{header}</Text>
     </View>
-    <View>{contents}</View>
+    <Text>{content}</Text>
   </View>
 )
 

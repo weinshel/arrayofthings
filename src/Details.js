@@ -92,12 +92,11 @@ class Details extends React.Component {
         <Webcam />
 
         <MyHeading level="h2">Microphone 🎤</MyHeading>
-        <Text size="large">
-          A microphone is only used to determine the loudness of sound around the device. <strong>Audio recordings are never sent or stored.</strong>
-          <p>Audio level: {this.state.audioLevel}</p>
-          <Progress label="Loading completion" valueNow={this.state.audioLevel} valueMax={.3} />
-
-        </Text>
+        <Text size="large"><p>A microphone is only used to determine the loudness of sound around the device. <strong>Audio recordings are never sent or stored.</strong></p></Text>
+          <Card 
+            header='Audio level' 
+            content={<Progress label="Audio level" valueNow={this.state.audioLevel} valueMax={.3} />} 
+          />
 
         <MyHeading level="h2">Environmental sensors ☁️</MyHeading>
         <Text size="large">
@@ -105,26 +104,22 @@ class Details extends React.Component {
         </Text>
 
         <MyHeading level="h3">Weather 🌦</MyHeading>
-        <Text size="medium">
+        <Text size="medium"><p>
           Used to determine weather conditions.
-        </Text>
-        <Card header='Temperature' contents={this.state.temperature} />
-        <p>temp: {this.state.temperature} F</p>
-        <p>humidity: {this.state.humidity} %</p>
-        <p>barometric pressure: {this.state.pressure} hPa</p>
+        </p></Text>
+        <Card header='Temperature' content={this.state.temperature + 'ºF'} />
+        <Card header='Humidity' content={this.state.humidity + '%'} />
+        <Card header='Temperature' content={this.state.pressure + 'hPa'} />
 
         <MyHeading level="h3">Light 💡</MyHeading>
-        <Text size="medium">
-          Used to determine cloud cover and sunlight intensity.
-        </Text>
-        <p>UV index: {this.state.uvIndex}</p>
-        <p>Visibility: {this.state.visibility}</p>
+        <Text size="medium"><p>Used to determine cloud cover and sunlight intensity.</p></Text>
+        <Card header='UV index' content={this.state.uvIndex} />
+        <Card header='Visible light' content={this.state.visibility} />
 
         <MyHeading level="h3">Air 💨</MyHeading>
-        <Text size="medium">
-          Used to determine air quality and health.
-        </Text>
-        <p>Ozone: {this.state.ozone} ppm</p>
+        <Text size="medium"><p>Used to determine air quality and health.</p></Text>
+        <Card header='Ozone' content={this.state.ozone} />
+
 
         <MyHeading level="h3">Gravity & magnetism 🌎</MyHeading>
 
