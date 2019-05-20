@@ -24,41 +24,7 @@ class Details extends React.Component {
     this.state = {
     }
 
-    // this.getAudio = this.getAudio.bind(this)
   }
-
-//   async getAudio () {
-//     const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true })
-//     var audioContext = new AudioContext();
-//     var analyser = audioContext.createAnalyser();
-//     var microphone = audioContext.createMediaStreamSource(stream);
-//     var javascriptNode = audioContext.createScriptProcessor(2048, 1, 1);
-
-//     analyser.smoothingTimeConstant = 0.8;
-//     analyser.fftSize = 1024;
-
-//     microphone.connect(analyser);
-//     analyser.connect(javascriptNode);
-//     javascriptNode.connect(audioContext.destination);
-
-//     let average;
-//     javascriptNode.onaudioprocess = () => {
-//       var array = new Uint8Array(analyser.frequencyBinCount);
-//       analyser.getByteFrequencyData(array);
-//       var values = 0;
-
-//       var length = array.length;
-//       for (var i = 0; i < length; i++) {
-//         values += (array[i]);
-//       }
-
-//       average = values / length;
-
-//     }
-//     setInterval(() => {
-//       this.setState({audioLevel: average.toFixed(2)})
-//     }, 1000)
-// }
 
   async componentDidMount () {
 
