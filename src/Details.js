@@ -45,7 +45,7 @@ poseNetVid = () => {
 
   // Listen to new 'pose' events
   poseNet.on('pose', (results) => {
-    console.log(results);
+    //console.log(results);
 
     this.setState({numPeople: results.length})
   });
@@ -133,9 +133,9 @@ poseNetVid = () => {
 
         <MyHeading level="h2">Microphone 🎤</MyHeading>
         <Text size="large"><p>A microphone is only used to determine the loudness of sound around the device. <strong>Audio recordings are never sent or stored.</strong></p></Text>
-          <Card 
-            header='Audio level' 
-            content={<Progress label="Audio level" valueNow={this.state.audioLevel} valueMax={.3} />} 
+          <Card
+            header='Audio level'
+            content={<Progress label="Audio level" valueNow={this.state.audioLevel} valueMax={.3} />}
           />
 
         <MyHeading level="h2">Environmental sensors ☁️</MyHeading>
@@ -149,19 +149,28 @@ poseNetVid = () => {
         </p></Text>
         <Card header='Temperature' content={this.state.temperature + 'ºF'} />
         <Card header='Humidity' content={this.state.humidity + '%'} />
-        <Card header='Temperature' content={this.state.pressure + 'hPa'} />
+        <Card header='Barometric Pressure' content={this.state.pressure + 'hPa'} />
 
         <MyHeading level="h3">Light 💡</MyHeading>
         <Text size="medium"><p>Used to determine cloud cover and sunlight intensity.</p></Text>
         <Card header='UV index' content={this.state.uvIndex} />
-        <Card header='Visible light' content={this.state.visibility} />
+        <Card header='Visible light' content={'9,567 lux'} />
+        <Card header='Infrared light' content={'78,306 lux'} />
+
 
         <MyHeading level="h3">Air 💨</MyHeading>
         <Text size="medium"><p>Used to determine air quality and health.</p></Text>
-        <Card header='Ozone' content={this.state.ozone} />
+        <Card header='Carbon Monoxide' content={'0.5 ppm'} />
+        <Card header='Hydrogen Sulphide' content={'0.0002 ppm'} />
+        <Card header='Nitrogen Dioxide' content={'0.4 ppm'} />
+        <Card header='Ozone' content={this.state.ozone + ' ppm'} />
+        <Card header='Sulfur Dioxide' content={'0.3 ppm'} />
+        <Card header='Air Patricles' content={'0.033 ppm'} />
 
 
         <MyHeading level="h3">Gravity & magnetism 🌎</MyHeading>
+        <Card header='Acceleration' content={'0 m/s²'} />
+        <Card header='Magnetic Field' content={'22 mG'} />
 
         <MyHeading level="h2">About us</MyHeading>
         <Text size="large">
