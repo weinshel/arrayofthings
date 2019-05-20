@@ -10,8 +10,8 @@ const Card = ({ header, content }) => (
     borderWidth="medium"
     borderRadius="medium"
     display="inline-block"
-    margin="0 medium 0 0"
-    width="200px"
+    margin="0 medium medium 0"
+    width="220px"
   >
     <View
       as="header"
