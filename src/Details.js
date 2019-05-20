@@ -36,7 +36,16 @@ class Details extends React.Component {
       longitude: -87.60074932651055
     };
     DarkSkyApi.loadCurrent(position)
-      .then(result => console.log(result));
+      .then((result) => {
+        console.log(result);
+
+        this.setState({temperature: result.temperature})
+        this.setState({humidity: result.humidity *100})
+        this.setState({pressure: result.pressure})
+        this.setState({uvIndex: result.uvIndex})
+        this.setState({ozone: result.ozone})
+        this.setState({visibility: result.visibility})
+      });
 
 
     try {
@@ -75,11 +84,12 @@ class Details extends React.Component {
           <p>The devices have been carefully engineered to protect your privacy. We do not collect or store any personally identifiable information, and use industry-leading security practices. Aggregate data is available to researchers and the public.</p>
           <p>Scroll down to learn more about what data the devices collect.</p>
         </Text>
-        
+
         <MyHeading level="h2">Camera 📷</MyHeading>
         <Text size="large">
           <p>A camera is only used to measure the following attributes, which are determined by a machine learning algorithm. <strong>Pictures or video on the camera never are sent or stored.</strong></p>
         </Text>
+        <Webcam />
 
         <MyHeading level="h2">Microphone 🎤</MyHeading>
         <Text size="large">
@@ -98,18 +108,23 @@ class Details extends React.Component {
         <Text size="medium">
           Used to determine weather conditions.
         </Text>
-        <Card header='Temperature' contents={this.state.temperature}>asdf</Card>
-        <p>temp: {this.state.temperature}</p>
+        <Card header='Temperature' contents={this.state.temperature} />
+        <p>temp: {this.state.temperature} F</p>
+        <p>humidity: {this.state.humidity} %</p>
+        <p>barometric pressure: {this.state.pressure} hPa</p>
 
         <MyHeading level="h3">Light 💡</MyHeading>
         <Text size="medium">
           Used to determine cloud cover and sunlight intensity.
         </Text>
+        <p>UV index: {this.state.uvIndex}</p>
+        <p>Visibility: {this.state.visibility}</p>
 
         <MyHeading level="h3">Air 💨</MyHeading>
         <Text size="medium">
           Used to determine air quality and health.
         </Text>
+        <p>Ozone: {this.state.ozone} ppm</p>
 
         <MyHeading level="h3">Gravity & magnetism 🌎</MyHeading>
 

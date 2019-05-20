@@ -1,7 +1,7 @@
 import React from 'react'
 import { View } from '@instructure/ui-layout'
 
-const Card = ({ header, ...props }) => (
+const Card = ({ header, contents }) => (
   <View 
     as='div'
     border="small"
@@ -11,7 +11,7 @@ const Card = ({ header, ...props }) => (
     >
         {header}
     </View>
-    <View props />
+    <View>{contents}</View>
   </View>
 )
 
