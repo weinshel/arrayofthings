@@ -22,6 +22,7 @@ class Details extends React.Component {
     }
 
     this.getAudio = this.getAudio.bind(this)
+    this.componentDidMount = this.componentDidMount.bind(this)
   }
 
   async getAudio () {
@@ -56,14 +57,23 @@ class Details extends React.Component {
   async componentDidMount () {
 
     this.getAudio()
-    
+
     DarkSkyApi.apiKey = '063be74a6b9691f10b7c4e43f2f642af';
     const position = {
       latitude: 41.78468745,
       longitude: -87.60074932651055
     };
     DarkSkyApi.loadCurrent(position)
-      .then(result => console.log(result));
+      .then((result) => {
+        console.log(result);
+
+        this.setState({temperature: result.temperature})
+        this.setState({humidity: result.humidity *100})
+        this.setState({pressure: result.pressure})
+        this.setState({uvIndex: result.uvIndex})
+        this.setState({ozone: result.ozone})
+        this.setState({visibility: result.visibility})
+      });
 
 
 
@@ -81,11 +91,12 @@ class Details extends React.Component {
           <p>The devices have been carefully engineered to protect your privacy. We do not collect or store any personally identifiable information, and use industry-leading security practices. Aggregate data is available to researchers and the public.</p>
           <p>Scroll down to learn more about what data the devices collect.</p>
         </Text>
-        
+
         <MyHeading level="h2">Camera 📷</MyHeading>
         <Text size="large">
           <p>A camera is only used to measure the following attributes, which are determined by a machine learning algorithm. <strong>Pictures or video on the camera never are sent or stored.</strong></p>
         </Text>
+        <Webcam />
 
         <MyHeading level="h2">Microphone 🎤</MyHeading>
         <Text size="large">
@@ -102,17 +113,22 @@ class Details extends React.Component {
         <Text size="medium">
           Used to determine weather conditions.
         </Text>
-        <p>temp: {this.state.temperature}</p>
+        <p>temp: {this.state.temperature} F</p>
+        <p>humidity: {this.state.humidity} %</p>
+        <p>barometric pressure: {this.state.pressure} hPa</p>
 
         <MyHeading level="h3">Light 💡</MyHeading>
         <Text size="medium">
           Used to determine cloud cover and sunlight intensity.
         </Text>
+        <p>UV index: {this.state.uvIndex}</p>
+        <p>Visibility: {this.state.visibility}</p>
 
         <MyHeading level="h3">Air 💨</MyHeading>
         <Text size="medium">
           Used to determine air quality and health.
         </Text>
+        <p>Ozone: {this.state.ozone} ppm</p>
 
         <MyHeading level="h3">Gravity & magnetism 🌎</MyHeading>
 
