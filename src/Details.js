@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Webcam from 'react-webcam'
+import * as ml5 from "ml5"
 import DarkSkyApi from 'dark-sky-api'
 import { Text, Heading } from '@instructure/ui-elements'
 import { Button } from '@instructure/ui-buttons'
@@ -23,6 +23,7 @@ class Details extends React.Component {
 
     this.getAudio = this.getAudio.bind(this)
     this.componentDidMount = this.componentDidMount.bind(this)
+    this.poseNetVid = this.poseNetVid.bind(this)
   }
 
   async getAudio () {
@@ -54,7 +55,39 @@ class Details extends React.Component {
   }
 }
 
+poseNetVid = () => {
+  const video = document.getElementById('video');
+
+  function modelLoaded() {
+    console.log('Model Loaded!');
+  }
+
+  // Create a new poseNet method
+  const poseNet = ml5.poseNet(video, modelLoaded);
+
+  // When the model is loaded
+
+  // Listen to new 'pose' events
+  poseNet.on('pose', (results) => {
+    console.log(results);
+
+    this.setState({numPeople: results.length})
+  });
+}
+
   async componentDidMount () {
+
+    var video = document.querySelector("#video")
+
+    if (navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function (stream) {
+          video.srcObject = stream;
+        })
+        .catch(function (err0r) {
+          console.log("Something went wrong!");
+        });
+    }
 
     this.getAudio()
 
@@ -74,6 +107,10 @@ class Details extends React.Component {
         this.setState({ozone: result.ozone})
         this.setState({visibility: result.visibility})
       });
+
+      this.poseNetVid()
+
+
 
 
 
@@ -96,7 +133,8 @@ class Details extends React.Component {
         <Text size="large">
           <p>A camera is only used to measure the following attributes, which are determined by a machine learning algorithm. <strong>Pictures or video on the camera never are sent or stored.</strong></p>
         </Text>
-        <Webcam />
+        <video autoPlay={true} id="video" width = {300} height={200}></video>
+        <p>Number of people: {this.state.numPeople}</p>
 
         <MyHeading level="h2">Microphone 🎤</MyHeading>
         <Text size="large">
