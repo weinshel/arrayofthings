@@ -2,9 +2,12 @@ import React from 'react'
 
 import Webcam from 'react-webcam'
 import DarkSkyApi from 'dark-sky-api'
-import { Text, Heading } from '@instructure/ui-elements'
+import { Text, Heading, Progress } from '@instructure/ui-elements'
 import { Button } from '@instructure/ui-buttons'
 import { Flex } from '@instructure/ui-layout'
+
+import Card from './Card'
+import SoundMeter from './SoundMeter'
 
 const MyHeading = (props) => (
     <Heading
@@ -21,41 +24,45 @@ class Details extends React.Component {
     this.state = {
     }
 
-    this.getAudio = this.getAudio.bind(this)
+    // this.getAudio = this.getAudio.bind(this)
   }
 
-  async getAudio () {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true })
-    var audioContext = new AudioContext();
-    var analyser = audioContext.createAnalyser();
-    var microphone = audioContext.createMediaStreamSource(stream);
-    var javascriptNode = audioContext.createScriptProcessor(2048, 1, 1);
+//   async getAudio () {
+//     const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true })
+//     var audioContext = new AudioContext();
+//     var analyser = audioContext.createAnalyser();
+//     var microphone = audioContext.createMediaStreamSource(stream);
+//     var javascriptNode = audioContext.createScriptProcessor(2048, 1, 1);
 
-    analyser.smoothingTimeConstant = 0.8;
-    analyser.fftSize = 1024;
+//     analyser.smoothingTimeConstant = 0.8;
+//     analyser.fftSize = 1024;
 
-    microphone.connect(analyser);
-    analyser.connect(javascriptNode);
-    javascriptNode.connect(audioContext.destination);
-    javascriptNode.onaudioprocess = () => {
-      var array = new Uint8Array(analyser.frequencyBinCount);
-      analyser.getByteFrequencyData(array);
-      var values = 0;
+//     microphone.connect(analyser);
+//     analyser.connect(javascriptNode);
+//     javascriptNode.connect(audioContext.destination);
 
-      var length = array.length;
-      for (var i = 0; i < length; i++) {
-        values += (array[i]);
-      }
+//     let average;
+//     javascriptNode.onaudioprocess = () => {
+//       var array = new Uint8Array(analyser.frequencyBinCount);
+//       analyser.getByteFrequencyData(array);
+//       var values = 0;
 
-      var average = values / length;
+//       var length = array.length;
+//       for (var i = 0; i < length; i++) {
+//         values += (array[i]);
+//       }
 
-      this.setState({audioLevel: average})
-  }
-}
+//       average = values / length;
+
+//     }
+//     setInterval(() => {
+//       this.setState({audioLevel: average.toFixed(2)})
+//     }, 1000)
+// }
 
   async componentDidMount () {
 
-    this.getAudio()
+    
     
     DarkSkyApi.apiKey = '063be74a6b9691f10b7c4e43f2f642af';
     const position = {
@@ -66,6 +73,27 @@ class Details extends React.Component {
       .then(result => console.log(result));
 
 
+    try {
+      window.AudioContext = window.AudioContext || window.webkitAudioContext;
+      window.audioContext = new AudioContext();
+    } catch (e) {
+      alert('Web Audio API not supported.');
+    }
+
+    const stream = await navigator.mediaDevices.getUserMedia({
+      audio: true,
+      video: false
+    })
+    const soundMeter = new SoundMeter(window.audioContext);
+    soundMeter.connectToSource(stream, (e) => {
+      if (e) {
+        console.log(e);
+        return;
+      }
+      setInterval(() => {
+        this.setState({audioLevel: soundMeter.slow.toFixed(3)})
+      }, 200);
+  });
 
   }
 
@@ -91,6 +119,8 @@ class Details extends React.Component {
         <Text size="large">
           A microphone is only used to determine the loudness of sound around the device. <strong>Audio recordings are never sent or stored.</strong>
           <p>Audio level: {this.state.audioLevel}</p>
+          <Progress label="Loading completion" valueNow={this.state.audioLevel} valueMax={.3} />
+
         </Text>
 
         <MyHeading level="h2">Environmental sensors ☁️</MyHeading>
@@ -102,6 +132,7 @@ class Details extends React.Component {
         <Text size="medium">
           Used to determine weather conditions.
         </Text>
+        <Card header='Temperature' contents={this.state.temperature}>asdf</Card>
         <p>temp: {this.state.temperature}</p>
 
         <MyHeading level="h3">Light 💡</MyHeading>
