@@ -1,6 +1,7 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Array of Things",
+  "name": "Array of Things Privacy Notice",
+  "orientation" : "portrait",
   "icons": [
     {
       "src": "favicon.ico",

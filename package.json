@@ -1,5 +1,6 @@
 {
   "name": "arrayofthings",
+  "homepage": "https://weinshel.github.io/arrayofthings",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -10,16 +11,18 @@
     "@instructure/ui-icons": "^6.2.0",
     "@instructure/ui-layout": "^6.2.0",
     "dark-sky-api": "^0.6.32",
+    "gh-pages": "^2.0.1",
     "ml5": "^0.2.3",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1",
-    "react-webcam": "^1.1.1"
+    "react-scripts": "3.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
