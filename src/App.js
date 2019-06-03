@@ -41,7 +41,7 @@ class App extends React.Component {
     const { details } = this.state
 
     return (
-      <div style={{width: '1000px', maxWidth: '90%', padding:'20px'}}>
+      <div style={{width: '800px', maxWidth: '80%', padding:'50px'}}>
         {!details && <div>
           <Intro />
           <Button
